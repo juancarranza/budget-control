@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-//import 'bootstrap/dist/js/bootstrap';//Adding Bootstrap
-import '../styles/Login.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';//Adding Bootstrap icons
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 
 const Login = () => {
   //state usuario
@@ -11,16 +11,17 @@ const Login = () => {
   //state password
   const [password, setPassword] =useState("");
 
+
   const userNameHandler = (e) =>  {
     setUsername(e.target.value);
     //console.log(e.target.value);
   };
 
-  const passwordHander = (e) => {
+  const passwordHandler = (e) => {
     setPassword(e.target.value)
   };
 
-  const loginHandler = (e) => {
+  const loginHandlerSubmit = async (e) => {
     e.preventDefault();
     const loginCredentials = {
       usuario: username,
@@ -31,45 +32,31 @@ const Login = () => {
   }
 
   return (
-    <div className='container global'>
-      <div className="card login-form">
-        <div className='card-body'>
-          <i className="bi bi-person-circle login-logo"></i>
-          <div className='card-text'>
-            <form onSubmit={loginHandler}>
-              <div className='form-group'>
-                <label htmlFor='inputEmail'>Email Address</label>
-                <input type='email' 
-                  className='form-control form-control-sm'
-                  id="inputUsername"
-                  placeholder="Usuario"
-                  onChange={userNameHandler}
-                  
-                />
-                </div>
-                <div className='form-group'>
-                  <label htmlFor='inputPassword'>Password</label>
-                  <input type='password' 
-                    className='form-control form-control-sm'
-                    id="inputPassword"
-                    placeholder="Password"
-                    onChange={passwordHander}
-                    
-                  />
-                  </div>
-                  <button className='form-control btn btn-primary btn-user btn-block' type='submit'>
-                    Sign In
-                  </button>
-                
-                <div className='signup'>
-                  Don't have an account? <a href="#">Create One</a>
-                </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>  
-    
+    <div className='d-flex align-items-center justify-content-center login-main'>
+        <Card>
+          <Card.Body>
+            <Card.Title className='text-center'>Login</Card.Title>
+            <Form onSubmit={loginHandlerSubmit}>
+              <Form.Group className="mb-3" >
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" onChange={userNameHandler}/>
+              </Form.Group>
+              <Form.Group className="mb-3" >
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" onChange={passwordHandler} />
+              </Form.Group>
+              <div className='d-grip gap-2'>
+                <Button variant="primary" type='submit'>Login</Button>
+              </div>
+            </Form>
+          </Card.Body>
+          <Alert key='light' variant='light'>
+            Need an account? Create an account &nbsp;
+            <Alert.Link href="#">here</Alert.Link>
+        </Alert>
+        </Card>
+        
+    </div>
   );
 };
 
