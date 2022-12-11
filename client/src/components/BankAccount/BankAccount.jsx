@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../../styles/BankAccount.css';
 import Transfer from './Transfer';
+import EditBankAccount from './EditBankAccount';
+import DeleteBankAccount from './DeleteBankAccount';
 
 
 function CustomToggle({ eventKey }) {
@@ -22,11 +24,21 @@ function CustomToggle({ eventKey }) {
 
 
 const BankAccount = (props) => {
-
+{/* state and functions used to handle the Modal to Transfer */}
   const [showTransfer, setShowTransfer] = useState(false);
-
   const handleCloseTransfer = (showModalT) => setShowTransfer(showModalT);
   const handleShowTransfer = () => setShowTransfer(true);
+
+{/* State and functions used to handle the Modal to Edit */}
+  const [showEdit, setShowEdit] = useState(false);
+  const handleCloseEdit = (showModalEdit) => setShowEdit(showModalEdit);
+  const handleShowEdit = () => setShowEdit(true);
+
+{/* State and functions used to handle the Modal to Delete */}
+  const [showDelete, setShowDelete] = useState(false);
+  const handleCloseDelete = (showModalDel) => setShowDelete(showModalDel);
+  const handleShowDelete = () => setShowDelete(true);
+
   return (
     <>   
         <Card className="d-flex bnk-Acc-item" >
@@ -45,8 +57,8 @@ const BankAccount = (props) => {
                   <ThreeDotsVertical />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Edit</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Delete Account</Dropdown.Item>
+                  <Dropdown.Item onClick={handleShowEdit} >Edit</Dropdown.Item>
+                  <Dropdown.Item onClick={handleShowDelete} >Delete Account</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown> 
             </div>
@@ -62,6 +74,22 @@ const BankAccount = (props) => {
           </Accordion.Collapse>
         </Card>
         <Transfer onHide={handleCloseTransfer} show={showTransfer} name_origin_acc={props.name} id_origin_acc={props.id}/>
+        <EditBankAccount onHide={handleCloseEdit} show={showEdit} bank_account={
+          { id: props.id, 
+            name: props.name, 
+            creation_date: props.creation_date,
+            initial_ammount: props.initial_ammount,
+            description: props.description,
+            currency: {
+              id: props.currency.id,
+              name: props.currency.name,
+              symbol: props.currency.symbol
+            }
+          }
+          } 
+        />
+        <DeleteBankAccount onHide={handleCloseDelete} show={showDelete} account_name={props.name} account_id={props.id} />
+        
     </>
   );
 };

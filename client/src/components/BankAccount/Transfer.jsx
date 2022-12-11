@@ -34,14 +34,7 @@ const Transfer = (props) => {
                 autoFocus
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="transfer.date">
-              <Form.Label>Transfer Ammount</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="MM/dd/yyyy"
-                autoFocus
-              />
-            </Form.Group>
+            
 
             <Form.Group
               className="mb-3"
