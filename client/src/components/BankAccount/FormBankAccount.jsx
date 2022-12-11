@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import '../../styles/FormBankAccount.css';
 import { Plus } from 'react-bootstrap-icons';
 
+
 const FormBankAccount = () => {
 
   const [show, setShow] = useState(false);
@@ -15,7 +16,7 @@ const FormBankAccount = () => {
   return (
     <>
       <Button variant="primary" onClick={handleShow} className="new-BkAcc" style={{borderRadius: '60%'}}>
-        <Plus />
+        <Plus size='lg' />
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -47,7 +48,7 @@ const FormBankAccount = () => {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
               <Form.Label>Initial Ammount</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 placeholder="0.00"
                 autoFocus
               />
@@ -64,7 +65,7 @@ const FormBankAccount = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="light" onClick={handleClose} style={{ color: '#2196f3'}}>
             Close
           </Button>
           <Button variant="primary" onClick={handleClose}>

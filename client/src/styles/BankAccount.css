@@ -1,0 +1,23 @@
+.bnk-Acc-item {
+  color: #212121;
+    font-family: -apple-system,BlinkMacSystemFont,Roboto,Oxygen,Ubuntu,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.big_text_2 {
+    font-size: 1.2rem;
+}
+
+.positive_balance {
+  font-size: 1.1rem;
+  color: rgb(76, 175, 80);
+}
+
+.negative_balance {
+  font-size: 1.1rem;
+  color:#F44336;
+}
