@@ -20,19 +20,40 @@ export async function createProduct(request, response){
     }
 }
 
-export async function getProductos(request, response){
+
+export async function getAllProductos(request, response){
     try{//? request
         const allProducts = await Product.findAll( {
-            attributes: ['id','name'],
-            where: {
-                name : "Pollo Frito"
-            }
-        } ); // gets only the columns that we want
+            attributes: ['id','name']}); // gets only the columns that we want
+
         //const allProducts = await Product.findAll( {attributes: ['name']} ); // gets only the columns that we want
         response.send(allProducts);
     }catch(error){
         response.status(500).send({
             message:"There was an error while listing the productos",
+            error,
+        });
+    }
+}
+
+export async function getProducto(request, response){
+    const id = request.params.id;
+    console.log("id:"+id)
+    try{
+        const product = await Product.findOne( {
+            attributes: ['id', 'name'],
+            where: {
+                id
+            }
+        } );
+        if(!product){
+            return response.status(404).send({ message:"Product not found" });
+        }
+        //const allProducts = await Product.findAll( {attributes: ['name']} ); // gets only the columns that we want
+        response.send(product);
+    }catch(error){
+        response.status(500).send({
+            message:`There was an error while listing the productos`,
             error,
         });
     }

@@ -5,14 +5,14 @@ import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import Alert from 'react-bootstrap/Alert';
 import {React, useState} from 'react';
-
+import Axios from 'axios';
 
 const Register = () => {
 
   const [usuario, setUsuario] = useState({
-    first_name:'',
-    last_name:'',
-    email:'',
+    firstName:'',
+    lastName:'',
+    username:'',
     password:'',
   });
 
@@ -37,6 +37,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    Axios.post('http://localhost:3001/api/budget-control/user/register', { usuario }).then((response)=> console.log(response));
     console.log(usuario);
   };
 
@@ -50,16 +51,16 @@ const Register = () => {
             <Row className="mb-3">
                 <Form.Group as={Col}>
                   <Form.Label>First Name</Form.Label>
-                  <Form.Control placeholder="Enter first name" name="first_name" onChange={handleChange}/>
+                  <Form.Control placeholder="Enter first name" name="firstName" onChange={handleChange}/>
                 </Form.Group>
                 <Form.Group as={Col}>
                   <Form.Label>Last Name</Form.Label>
-                  <Form.Control placeholder="Enter last name" name="last_name" onChange={handleChange}/>
+                  <Form.Control placeholder="Enter last name" name="lastName" onChange={handleChange}/>
                 </Form.Group>
               </Row>
               <Form.Group className="mb-3" >
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" name="email" onChange={handleChange}/>
+                <Form.Control type="email" placeholder="Enter email" name="username" onChange={handleChange}/>
               </Form.Group>
               <Row className="mb-3">
               {confirmPasswordAlert && <Alert variant={confirmPasswordAlert.variant}>{confirmPasswordAlert.mensaje}</Alert>}

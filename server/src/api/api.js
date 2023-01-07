@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import productRouter from "../routes/Product.Router.js";
+import userRouter from "../routes/User.Router.js";
 
 const app = express();
 
@@ -10,6 +11,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 //url base de mi api
-app.use('/api/budget-control', productRouter);
+app.use('/api/budget-control', productRouter, userRouter);
 
 export default app;
