@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
+import Axios from 'axios';
 
 const Login = () => {
   //state usuario
@@ -24,11 +25,12 @@ const Login = () => {
   const loginHandlerSubmit = async (e) => {
     e.preventDefault();
     const loginCredentials = {
-      usuario: username,
-      clave: password
+      username: username,
+      password: password
     }
 
     console.log(loginCredentials);
+    Axios.post('http://localhost:3001/api/budget-control/user/login', { loginCredentials }).then((response)=> console.log(response));
   }
 
   return (

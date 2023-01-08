@@ -35,10 +35,13 @@ export async function register(request, response){
 export async function login(request, response){
     
     try{
-        const saltRounds = 10;
-        //const username = request.body.usuario.username;
-        const username = request.body.username;
+        const username = request.body.loginCredentials.username;
+        //const username = request.body.username;
+        console.log("USERNAME: "+username);
+        //const password=request.body.password;
+        const password=request.body.loginCredentials.password;
         //const password = await bcrypt.hash(request.body.usuario.password, saltRounds);
+        
 
         const user= await User.findOne({
             attributes: ['id', 'username', 'password', 'firstName', 'lastName', 'isAdmin'], 
@@ -47,11 +50,18 @@ export async function login(request, response){
             }
         });
 
+        let result;
+        if(user){
+            const login= await bcrypt.compare(password, user.password);
+            result = login ? user : "Wrong username/password combination!";
+        }else{
+            result= "The user does not exists!";
+        }
 
-        response.send(user);
+        response.send(result)
         
-
     }catch(error){
+        console.log("error: "+error);
         response.status(500).send({
             message:"There was an error while login",
             error,
