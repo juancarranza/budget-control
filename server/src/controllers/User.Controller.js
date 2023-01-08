@@ -32,4 +32,32 @@ export async function register(request, response){
 
 }//end register
 
+export async function login(request, response){
+    
+    try{
+        const saltRounds = 10;
+        //const username = request.body.usuario.username;
+        const username = request.body.username;
+        //const password = await bcrypt.hash(request.body.usuario.password, saltRounds);
+
+        const user= await User.findOne({
+            attributes: ['id', 'username', 'password', 'firstName', 'lastName', 'isAdmin'], 
+            where: {
+                username
+            }
+        });
+
+
+        response.send(user);
+        
+
+    }catch(error){
+        response.status(500).send({
+            message:"There was an error while login",
+            error,
+        });
+    }
+
+}//end register
+
 
