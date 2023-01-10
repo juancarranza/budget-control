@@ -18,7 +18,7 @@ export async function createProduct(request, response){
             error,
         });
     }
-}
+}//createProduct
 
 
 export async function getAllProductos(request, response){
@@ -34,7 +34,7 @@ export async function getAllProductos(request, response){
             error,
         });
     }
-}
+}//getAllProductos
 
 export async function getProducto(request, response){
     const id = request.params.id;
@@ -57,5 +57,25 @@ export async function getProducto(request, response){
             error,
         });
     }
-}
+}//getProducto
+
+export async function deleteOneProduct(request, response){
+    const id = request.params.id;
+    try{
+        const deletedProduct = await Product.destroy( {
+            where: {
+                id
+            }
+        } );
+
+        if(deletedProduct === 1){
+            return response.send({message: "Product deleted"});
+        }
+
+        response.send({message: "Product was not deleted"});
+    }catch(error){
+
+    }
+}//deleteOneProduct
+
 
