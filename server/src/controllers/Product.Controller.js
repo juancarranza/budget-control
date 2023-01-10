@@ -74,7 +74,35 @@ export async function deleteOneProduct(request, response){
 
         response.send({message: "Product was not deleted"});
     }catch(error){
+        response.status(500).send({
+            message:`There was an error while listing the productos`,
+            error,
+        });
+    }
+}//deleteOneProduct
 
+
+export async function updateOneProduct(request, response){
+    const id = request.body.id;
+    const name = request.body.name;
+
+    try{
+        const updatedProduct = await Product.update( 
+        {
+            name
+        },
+        {
+            where: {
+                id
+            }
+        } );
+
+        response.send(updatedProduct);
+    }catch(error){
+        response.status(500).send({
+            message:`There was an error while listing the productos`,
+            error,
+        });
     }
 }//deleteOneProduct
 
