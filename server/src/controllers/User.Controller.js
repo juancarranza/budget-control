@@ -68,6 +68,14 @@ export async function login(request, response){
         });
     }
 
-}//end register
+}//end login
 
-
+export async function testlogin(request, response){
+    try {
+        console.log(request.body);
+        console.log("here llego");
+    } catch (error) {
+        console.log(e);
+    }
+    
+}

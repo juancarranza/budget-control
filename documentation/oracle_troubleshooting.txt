@@ -1,0 +1,10 @@
+ C:\Users\juan\Desktop\WINDOWS.X64_193000_db_home\network\admin\listener.ora
+ 
+ 
+ lsnrctl status
+
+user: system
+password:Frozen2021*
+ 
+ 
+ SQL PLUS:

@@ -9,17 +9,21 @@ import NavBar from './components/dashboard/NavBar';
 //import './App.css';
 import Login from './components/Login';
 import Register from './components/Register';
+import { Provider } from 'react-redux';
+import { store } from './redux/store/index';
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       {/* <Login /> */}
       {/* <Register /> */}
       {/* <BankAccount /> */}
       {/* <BankAccountList />  */}
       {/* <FormBankAccount /> */}
 
-      <Routes> 
+      <Login />
+
+      {/* <Routes> 
         <Route path='/' element={<NavBar />} >
           <Route index element={<Home />} />
           <Route path='login' element={<Login />}/>
@@ -27,9 +31,9 @@ function App() {
           <Route path='bank-account' element={<BankAccountList />} />
           <Route path='transaction' element={<TransactionList />} />
         </Route>
-      </Routes>
+      </Routes> */}
       
-    </>
+    </Provider>
   );
 }
 
