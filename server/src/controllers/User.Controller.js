@@ -35,13 +35,14 @@ export async function register(request, response){
 export async function login(request, response){
     
     try{
+        console.log("here hola1");
         const username = request.body.loginCredentials.username;
         //const username = request.body.username;
         console.log("USERNAME: "+username);
         //const password=request.body.password;
         const password=request.body.loginCredentials.password;
         //const password = await bcrypt.hash(request.body.usuario.password, saltRounds);
-        
+        console.log("here hola2");
 
         const user= await User.findOne({
             attributes: ['id', 'username', 'password', 'firstName', 'lastName', 'isAdmin'], 
@@ -52,13 +53,17 @@ export async function login(request, response){
 
         let result;
         if(user){
+            console.log("user found");
+            console.log("=---------------");
             const login= await bcrypt.compare(password, user.password);
             result = login ? user : "Wrong username/password combination!";
+            console.log(result)
+            console.log("=---------------");
         }else{
             result= "The user does not exists!";
         }
 
-        response.send(result)
+        setTimeout(() => { response.send(result)}, 3000);
         
     }catch(error){
         console.log("error: "+error);

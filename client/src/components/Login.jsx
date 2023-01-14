@@ -8,8 +8,10 @@ import Axios from 'axios';
 import { login } from '../redux/user/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate= useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   //state usuario
@@ -38,20 +40,31 @@ const Login = () => {
     //Axios.post('http://localhost:3001/api/budget-control/user/login', { loginCredentials }).then((response)=> console.log(response));
 
     dispatch(
-      login({
-        username,
-        password
-      })
+      login(loginCredentials)
     );
 
   }
 
 
   useEffect(()=>{
+    console.log(user);
     if(user?.error !== undefined){
       alert(user?.error.message);
     }
   }, [user?.error]);
+
+
+  useEffect( () => {
+
+    if(!user?.isLogged){
+      console.log("here: "+user.isLogged);
+      navigate('/login');
+    }else{
+      navigate('/');
+    }
+
+  }, [user?.isLogged]
+  );
 
   return (
     <>

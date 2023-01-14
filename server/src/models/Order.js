@@ -8,8 +8,7 @@ const Order = db.get().define(
     'Order', 
     {
         id:{
-            type:DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type:DataTypes.NUMBER,
             primaryKey: true
         },
         total:{

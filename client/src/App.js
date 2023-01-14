@@ -12,18 +12,37 @@ import Register from './components/Register';
 import { Provider } from 'react-redux';
 import { store } from './redux/store/index';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 function App() {
+
+  const navigate= useNavigate();
+  const user = useSelector((state) => state.user);
+
+  useEffect( () => {
+
+    if(!user?.isLogged){
+      console.log("here: "+user.isLogged);
+      navigate('/login');
+    }else{
+      navigate('/');
+    }
+
+  }, [user?.isLogged]
+  );
+
   return (
-    <Provider store={store}>
+    
+      <>
       {/* <Login /> */}
       {/* <Register /> */}
       {/* <BankAccount /> */}
       {/* <BankAccountList />  */}
       {/* <FormBankAccount /> */}
 
-      <Login />
-
-      {/* <Routes> 
+      <Routes> 
         <Route path='/' element={<NavBar />} >
           <Route index element={<Home />} />
           <Route path='login' element={<Login />}/>
@@ -31,9 +50,10 @@ function App() {
           <Route path='bank-account' element={<BankAccountList />} />
           <Route path='transaction' element={<TransactionList />} />
         </Route>
-      </Routes> */}
+      </Routes>
       
-    </Provider>
+    
+    </>
   );
 }
 
