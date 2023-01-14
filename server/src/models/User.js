@@ -1,8 +1,6 @@
 import {Sequelize, DataTypes} from "sequelize"; 
 import db from "../db/index.js"
 
-//const sequelize = new Sequelize("oracle");
-
 const User = db.get().define(
     'User', 
     {
@@ -34,7 +32,8 @@ const User = db.get().define(
         isAdmin:{
             type: DataTypes.BOOLEAN,
             allowNull: false
-        }
+        },
+
     },
     {
         schema: 'JUAN'
