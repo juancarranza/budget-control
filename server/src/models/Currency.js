@@ -5,7 +5,8 @@ const Currency = db.get().define(
     'Currency', 
     {
         id:{
-            type:DataTypes.UUIDV4,
+            type:DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
         name:{

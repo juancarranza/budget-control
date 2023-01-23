@@ -1,27 +1,29 @@
 import {Sequelize, DataTypes} from "sequelize"; 
 import db from "../db/index.js"
-import Category from "./Category.js";
+import User from "./User.js";
 import Currency from "./Currency.js";
 
 const BankAccount = db.get().define(
     'BankAccount', 
     {
         id:{
-            type:DataTypes.UUIDV4,
+            type:DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
-        ammount:{
-            type: DataTypes.FLOAT,
+        name: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
         description: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        creationDate:{
+        /*creationDate:{
             type: DataTypes.DATE,
-            allowNull: false
-        },
+            allowNull: false,
+            defaultValue: DataTypes.NOW
+        },*/
         initialAmmount:{
             type: DataTypes.FLOAT,
             allowNull: false
@@ -36,7 +38,7 @@ const BankAccount = db.get().define(
     }
 );
 //Adding Foreign Keys -> User & Currency
-BankAccount.belongsTo(Category, {foreignKey: "id_category"});// User FK 
+BankAccount.belongsTo(User, {foreignKey: "id_user"});// User FK 
 BankAccount.belongsTo(Currency, {foreignKey: "id_currency"});//Currency FK
 
 export default BankAccount;

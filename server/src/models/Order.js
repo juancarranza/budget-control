@@ -8,7 +8,7 @@ const Order = db.get().define(
     'Order', 
     {
         id:{
-            type:DataTypes.NUMBER,
+            type: DataTypes.NUMBER,
             primaryKey: true
         },
         total:{
@@ -21,9 +21,9 @@ const Order = db.get().define(
     }
 );
 
-Order.belongsTo(Customer, { foreignKey: "id_customer"});
+//Order.belongsTo(Customer, { foreignKey: "id_customer"});
 
-const customer = Customer.findOne({ where: {id: "1"}});
+//const customer = Customer.findOne({ where: {id: "1"}});
 
 
 

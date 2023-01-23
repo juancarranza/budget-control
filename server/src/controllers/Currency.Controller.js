@@ -18,7 +18,7 @@ export async function createCurrency(request, response){
     }
     catch(error){
         response.status(500).send({
-            message:"There was an error while creating a new product",
+            message:"There was an error while creating the new currency",
             error,
         });
     }

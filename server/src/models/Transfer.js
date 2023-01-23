@@ -7,18 +7,14 @@ const Transfer = db.get().define(
     'Transfer', 
     {
         id:{
-            type:DataTypes.UUIDV4,
+            type:DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
         ammount:{
             type: DataTypes.FLOAT,
             allowNull: false,
         },
-        transferDateTime:{
-            type: DataTypes.TIME,
-            allowNull: false,
-        },
-
         description: {
             type: DataTypes.STRING,
             allowNull: true,

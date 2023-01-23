@@ -1,12 +1,28 @@
-
 import Product from "../models/Product.js";
+import Order from "../models/Order.js";
+import {Sequelize, DataTypes} from "sequelize"; 
 
 export async function createProduct(request, response){
     try{
         const { name } = request.body;
-
+        const Orders = Product.hasMany(Order, { as: 'orders' });
         //const newProduct= await Product.build({ name }).save();
-        const newProduct= await Product.create( { name } );
+        //const id1=DataTypes.UUIDV4;
+        //console.log("id1: "+id1);
+        //const id2=DataTypes.UUIDV4;
+        //console.log("id2: "+id2);
+        const newProduct= await Product.create( { 
+            name, 
+            orders:[
+                {id: 33, total: 10},
+                { id: 44, total: 20}
+            ]
+        }, {
+            include: [{
+                association: Orders,
+                as: 'orders'
+            }]
+        } );
         //const newProductInstance = new Product.build({name});
         //const newProduct = await newProductInstance.save();
 

@@ -2,6 +2,7 @@
 import Category from "../models/Category.js";
 
 export async function createCategory(request, response){
+    console.log("here");
     try{
         const categoryType= request.body.categoryType;
         const name = request.body.name;

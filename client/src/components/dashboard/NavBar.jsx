@@ -24,7 +24,6 @@ const NavBar = () => {
               <Nav.Link as={Link} to="/" className='nav-link'><MdDashboard /> Dashboard</Nav.Link>
               <Nav.Link as={Link} to="/bank-account" ><Bank2 /> BankAccounts</Nav.Link>
               <Nav.Link as={Link} to="/transaction" ><ListUl /> Transactions</Nav.Link>
-              <Nav.Link as={Link} to="/login" >Login</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
