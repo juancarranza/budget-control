@@ -23,3 +23,23 @@ export async function createCurrency(request, response){
         });
     }
 }//create
+
+export async function getCurrencies(request, response){
+    try{
+        const status = "activo";
+        const currencies = await Currency.findAll( {
+            attributes: ['id','name', 'symbol'],
+            where : {
+                status
+            }
+        }); // gets only the columns that we want
+
+        //const allProducts = await Product.findAll( {attributes: ['name']} ); // gets only the columns that we want
+        response.send(currencies);
+    }catch(error){
+        response.status(500).send({
+            message:"There was an error while listing the currencies",
+            error,
+        });
+    }
+}//getAllProductos

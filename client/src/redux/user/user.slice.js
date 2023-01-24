@@ -27,6 +27,9 @@ export const userSlice = createSlice({
         builder.addCase(login.fulfilled, (state, action) =>{
             const { user } = action.payload;
 
+            console.log("usuario: ");
+            console.log(user);
+
             return {
                 ...state,
                 user,

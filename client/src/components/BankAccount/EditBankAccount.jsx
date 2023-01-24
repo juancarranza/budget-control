@@ -9,8 +9,7 @@ const EditBankAccount = (props) => {
   const editClose = () => {
     props.onHide(false);
   };
-
-  const [bankAcc, setBankAcc] = useState(props.bank_account); 
+  
 
   return (
     <>
@@ -25,7 +24,7 @@ const EditBankAccount = (props) => {
               <Form.Control
                 type="text"
                 placeholder="Enter name"
-                value={bankAcc.name}
+                value={props.bank_account.name}
                 autoFocus
               />
             </Form.Group>
@@ -46,7 +45,7 @@ const EditBankAccount = (props) => {
               <Form.Control
                 type="number"
                 placeholder="0.00"
-                value={bankAcc.initial_ammount}
+                value={props.bank_account.initial_ammount}
                 autoFocus
               />
             </Form.Group>
@@ -56,7 +55,7 @@ const EditBankAccount = (props) => {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows={3} value={bankAcc.description}/>
+              <Form.Control as="textarea" rows={3} value={props.bank_account.description}/>
             </Form.Group>
 
           </Form>

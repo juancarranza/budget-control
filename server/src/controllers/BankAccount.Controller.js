@@ -8,19 +8,19 @@ import db from "../db/index.js";
 
 export async function createBankAccount(request, response){
     try{
-        const name = request.body.name;
-        //console.log(name);
-        const description = request.body.description;
-        //console.log(description);
+        const name = request.body.bankAccount.name;
+        console.log(name);
+        const description = request.body.bankAccount.description;
+        console.log(description);
         //const creationDate = Sequelize.now();
-        const initialAmmount = request.body.initialAmmount;
-        //console.log(initialAmmount);
+        const initialAmmount = request.body.bankAccount.initial_ammount;
+        console.log(initialAmmount);
         const status = "activo";
-        //console.log(status);
-        const id_user= request.body.id_user;
-        //console.log(id_user);
-        const id_currency = request.body.id_currency;
-        //console.log(id_currency);
+        console.log(status);
+        const id_user= request.body.bankAccount.id_user;
+        console.log(id_user);
+        const id_currency = request.body.bankAccount.id_currency;
+        console.log(id_currency);
         //const newProduct= await Product.build({ name }).save();
         const newBankAccount= await BankAccount.create( { name, description, initialAmmount, status, id_user, id_currency } );
         

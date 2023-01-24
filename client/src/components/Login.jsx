@@ -41,6 +41,7 @@ const Login = () => {
 
     dispatch(
       login(loginCredentials)
+
     );
 
   }
@@ -60,6 +61,7 @@ const Login = () => {
       console.log("here: "+user.isLogged);
       navigate('/login');
     }else{
+
       navigate('/');
     }
 

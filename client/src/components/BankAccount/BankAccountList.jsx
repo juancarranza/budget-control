@@ -14,7 +14,7 @@ const BankAccountList = () => {
         <BankAccount balance='-40.00' currency={{id:1, symbol: 'Q', name: 'GTQ - Q'}} name='Test Bank Account 2' creation_date='12/09/2022' initial_ammount='100.00' id='2' key='2' />
       </Accordion>
     </div>  
-    <FormBankAccount />
+    <FormBankAccount key="123456"/>
     
     </>
   );
