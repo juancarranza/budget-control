@@ -16,15 +16,21 @@ const FormBankAccount = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleCreate = () => {
+  const handleCreate = (e) => {
+    
     setShow(false);
-    console.log("bankAccount");
+    console.log("cuenta de banco:");
     console.log(bankAccount);
-    Axios.post('http://localhost:3001/api/budget-control/bank-account/create', { bankAccount }).then((response)=> console.log(response));
+
+    //console.log('ID CURRENCY');
+    //console.log(currencies[0].id);
+    //console.log("bankAccount");
+    //console.log(bankAccount);
+    //Axios.post('http://localhost:3001/api/budget-control/bank-account/create', { bankAccount }).then((response)=> console.log(response));
 
   }; 
 
-  const [currencies, setCurrencies] = useState({});
+  
 
   const [bankAccount, setBankAccount] = useState({
     name: '',
@@ -42,6 +48,7 @@ const FormBankAccount = () => {
 
   };
 
+  const [currencies, setCurrencies] = useState([]);
   useEffect( () => {
     console.log("un efecto");
 
@@ -84,12 +91,13 @@ const FormBankAccount = () => {
               controlId="exampleForm.Select"
             >
               <Form.Label>Currency</Form.Label>
-              <Form.Select aria-label="Default select example" value={bankAccount.id_currency} onChange={handleChange} name="id_currency">
+              <Form.Select aria-label="Default select example" onChange={handleChange} name="id_currency">
+                <option value="none" >Select an Option</option>
                 { 
                     
                     currencies.map(
                       (currency) => (
-                        <option  value = {currency.id} >{currency.name +" - ("+currency.symbol+")" }</option>
+                          <option  value = {currency.id}>{currency.name +" - ("+currency.symbol+")" }</option>
                       )
                     )
 
