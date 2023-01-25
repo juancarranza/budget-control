@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import Axios from 'axios';
 
 
 const EditBankAccount = (props) => {
@@ -10,6 +11,49 @@ const EditBankAccount = (props) => {
     props.onHide(false);
   };
   
+  const [bankAccount, setBankAccount] = useState({
+    id: props.bank_account.id,
+    name: props.bank_account.name,
+    id_currency: props.bank_account.currency.id,
+    initial_ammount: props.bank_account.initial_ammount,
+    description: props.bank_account.description,
+    id_user: '784f7322-e0ed-4930-b876-17778c183cb7'
+  });
+
+  const [currencies, setCurrencies] = useState([]);
+  useEffect( () => {
+    console.log("un efecto");
+
+    Axios.get('http://localhost:3001/api/budget-control/currency').then((response)=>{ 
+      //setCurrencies(response)
+      //console.log(response.data);
+      setCurrencies(response.data);
+      console.log("Currencies edit: ");
+      console.log(currencies);
+      //console.log(user);
+    });
+    
+  }, [props.show]);
+
+  const handleChange = (e) => {
+    setBankAccount({...bankAccount, [e.target.name]:e.target.value});
+    console.log("BankAccount: ");
+    console.log(bankAccount);
+  };
+
+  const handleUpdate = (e) => {
+    
+    editClose();
+    console.log("cuenta de banco:");
+    console.log(bankAccount);
+
+    //console.log('ID CURRENCY');
+    //console.log(currencies[0].id);
+    //console.log("bankAccount");
+    //console.log(bankAccount);
+    Axios.put('http://localhost:3001/api/budget-control/bank-account/edit', { bankAccount }).then((response)=> console.log(response));
+
+  };
 
   return (
     <>
@@ -24,7 +68,9 @@ const EditBankAccount = (props) => {
               <Form.Control
                 type="text"
                 placeholder="Enter name"
-                value={props.bank_account.name}
+                name="name"
+                value={bankAccount.name}
+                onChange={handleChange}
                 autoFocus
               />
             </Form.Group>
@@ -33,10 +79,15 @@ const EditBankAccount = (props) => {
               controlId="exampleForm.Select"
             >
               <Form.Label>Currency</Form.Label>
-              <Form.Select aria-label="Default select example">
-                <option value="1">USD - $</option>
-                <option value="2">GTQ - Q</option>
-                <option value="3">CAN - $</option>
+              <Form.Select aria-label="Default select example" onChange={handleChange} name="id_currency" >
+              { 
+                  currencies.map(
+                    (currency) => (
+                        <option  value = {currency.id}>{currency.name +" - ("+currency.symbol+")" }</option>
+                    )
+                  )
+   
+                }
               </Form.Select>
             </Form.Group>
 
@@ -45,7 +96,9 @@ const EditBankAccount = (props) => {
               <Form.Control
                 type="number"
                 placeholder="0.00"
-                value={props.bank_account.initial_ammount}
+                name = "initial_ammount"
+                value={bankAccount.initial_ammount}
+                onChange={handleChange}
                 autoFocus
               />
             </Form.Group>
@@ -55,7 +108,7 @@ const EditBankAccount = (props) => {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows={3} value={props.bank_account.description}/>
+              <Form.Control as="textarea" rows={3} value={bankAccount.description} onChange={handleChange} name="description" />
             </Form.Group>
 
           </Form>
@@ -64,8 +117,8 @@ const EditBankAccount = (props) => {
           <Button variant="light" onClick={editClose} style={{ color: '#2196f3'}}>
             Close
           </Button>
-          <Button variant="primary" onClick={editClose}>
-            Create
+          <Button variant="primary" onClick={handleUpdate}>
+            Save
           </Button>
         </Modal.Footer>
       </Modal>

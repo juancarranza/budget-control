@@ -39,15 +39,15 @@ export async function createBankAccount(request, response){
 
 export async function updateBankAccount(request, response){
     try{
-        const id = request.body.id;
+        const id = request.body.bankAccount.id;
         //console.log(id);
-        const name = request.body.name;
+        const name = request.body.bankAccount.name;
         //console.log(name);
-        const description = request.body.description;
+        const description = request.body.bankAccount.description;
         //console.log(description);
-        const initialAmmount = request.body.initialAmmount;
+        const initialAmmount = request.body.bankAccount.initial_ammount;
         //console.log(id_user);
-        const id_currency = request.body.id_currency;
+        const id_currency = request.body.bankAccount.id_currency;
 
         const updatedBankAccount = await BankAccount.update( 
         {
@@ -124,11 +124,8 @@ export async function deleteBankAccount(request, response){
 export async function getBankAccounts(request, response){
     try{
 
-        
-        const estado="activo";
-        const bankAccounts = await db.get().query('SELECT ba.*, c."name" as currency, c."symbol" FROM JUAN."BankAccounts" ba, JUAN."Currencies" c WHERE ba."id_currency" = c."id" AND ba."status" = :status;', 
+        const bankAccounts = await db.get().query('SELECT * FROM JUAN.bank_account_list;', 
          {  
-            replacements: { status: estado },
             type: QueryTypes.SELECT 
          });
         // const bankAccounts = await db.get().query('SELECT ba."id", ba."name", ba."description" , ba."initialAmmount" , ba."status", ba."createdAt", c."name" AS currency, c."symbol"  FROM JUAN."Currencies" c, JUAN."BankAccounts" ba WHERE c."id" = ba."id_currency" AND ba."status" = :status AND c.status =:status ;', 

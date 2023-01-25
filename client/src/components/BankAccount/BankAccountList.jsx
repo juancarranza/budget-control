@@ -3,19 +3,45 @@ import Accordion from 'react-bootstrap/Accordion';
 import BankAccount from './BankAccount';
 import FormBankAccount from './FormBankAccount';
 import '../../styles/BankAccountList.css';
+import { useEffect, useState } from 'react';
+import Axios from 'axios';
 
 const BankAccountList = () => {
 
+  const [bankAccounts, setBankAccounts] = useState([]);
+  useEffect( () => {
+    Axios.get('http://localhost:3001/api/budget-control/bank-account').then((response)=>{ 
+      //setCurrencies(response)
+      //console.log(response.data);
+      setBankAccounts(response.data);
+      console.log("Bank Accounts: ");
+      console.log(bankAccounts);
+      
+    });
+  },[]);
+
+  
+
   return (
     <>
-    <div className='container list-bnk-acc'>
-      <Accordion defaultActiveKey="0">
-        <BankAccount balance='40.00' currency={{id:1, symbol: '$', name: 'USD - $'}} name='Test Bank Account 1' creation_date='12/10/2022' initial_ammount='10.00' id='1' key='1' />
-        <BankAccount balance='-40.00' currency={{id:1, symbol: 'Q', name: 'GTQ - Q'}} name='Test Bank Account 2' creation_date='12/09/2022' initial_ammount='100.00' id='2' key='2' />
-      </Accordion>
-    </div>  
-    <FormBankAccount key="123456"/>
-    
+      <div className='container list-bnk-acc'>
+        <Accordion defaultActiveKey="0">
+          {
+            bankAccounts.map((bankAccount) => 
+              <BankAccount 
+                balance= {bankAccount.initialAmmount + bankAccount.SUMA_TRANSACCIONES}
+                currency={{id: bankAccount.id_currency, symbol: bankAccount.symbol, name: bankAccount.CURRENCY}} 
+                name= {bankAccount.name} 
+                creation_date= {bankAccount.createdAt} 
+                initial_ammount= {bankAccount.initialAmmount}
+                description = {bankAccount.description} 
+                id= {bankAccount.id} 
+                key= {bankAccount.id} />
+              ) 
+          }
+        </Accordion>
+      </div>  
+      <FormBankAccount key="123456"/>
     </>
   );
 };

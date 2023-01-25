@@ -26,7 +26,7 @@ const FormBankAccount = () => {
     //console.log(currencies[0].id);
     //console.log("bankAccount");
     //console.log(bankAccount);
-    //Axios.post('http://localhost:3001/api/budget-control/bank-account/create', { bankAccount }).then((response)=> console.log(response));
+    Axios.post('http://localhost:3001/api/budget-control/bank-account/create', { bankAccount }).then((response)=> console.log(response));
 
   }; 
 
@@ -44,8 +44,6 @@ const FormBankAccount = () => {
     setBankAccount({...bankAccount, [e.target.name]:e.target.value});
     console.log("BankAccount: ");
     console.log(bankAccount);
-
-
   };
 
   const [currencies, setCurrencies] = useState([]);
@@ -58,7 +56,7 @@ const FormBankAccount = () => {
       setCurrencies(response.data);
       console.log("Currencies: ");
       console.log(currencies);
-      console.log(user);
+      //console.log(user);
     });
     
   }, [show]);
@@ -124,7 +122,7 @@ const FormBankAccount = () => {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows={3} value={bankAccount.description} onChange={handleChange} name="description"/>
+              <Form.Control as="textarea" rows={3} value={bankAccount.description} onChange={handleChange} name="description" />
             </Form.Group>
 
           </Form>
