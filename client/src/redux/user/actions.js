@@ -7,5 +7,7 @@ export const login = createAsyncThunk('user/login', async(loginCredentials) =>{
     const data = response.data;
     console.log("data");
     console.log(data);
-    return data;
+    return {
+        user: data
+    };
 });

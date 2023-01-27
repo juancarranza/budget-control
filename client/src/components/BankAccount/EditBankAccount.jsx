@@ -83,7 +83,7 @@ const EditBankAccount = (props) => {
               { 
                   currencies.map(
                     (currency) => (
-                        <option  value = {currency.id}>{currency.name +" - ("+currency.symbol+")" }</option>
+                        <option  key={currency.id} value = {currency.id}>{currency.name +" - ("+currency.symbol+")" }</option>
                     )
                   )
    

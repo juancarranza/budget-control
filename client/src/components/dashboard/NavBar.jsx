@@ -9,13 +9,19 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import {Outlet, Link} from "react-router-dom";
 import { Speedometer, Bank, Bank2, ListUl } from 'react-bootstrap-icons';
 import { MdDashboard } from 'react-icons/md';
-import '../../styles/SideBar.css'
+import '../../styles/SideBar.css';
+import { useSelector } from 'react-redux';
 
 
 const NavBar = () => {
+
+  //const {isLogged} = useSelector(state => state.user);
+  const user = useSelector(state => state.user)
+
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      {user.isLogged && 
+        <Navbar bg="light" expand="lg">
         <Container>
           <Navbar.Brand as={Link} to="/"> <MdDashboard /> Dashboard</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -28,9 +34,7 @@ const NavBar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <section>
-        <Outlet></Outlet>
-      </section>
+      }
     </>
   );
 };

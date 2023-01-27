@@ -8,9 +8,10 @@ import { useEffect } from 'react';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 
-const FormBankAccount = () => {
+const FormBankAccount = ({loadLista}) => {
 
   const user = useSelector((state) => state.user);
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -26,7 +27,11 @@ const FormBankAccount = () => {
     //console.log(currencies[0].id);
     //console.log("bankAccount");
     //console.log(bankAccount);
-    Axios.post('http://localhost:3001/api/budget-control/bank-account/create', { bankAccount }).then((response)=> console.log(response));
+    Axios.post('http://localhost:3001/api/budget-control/bank-account/create', { bankAccount }).
+      then((response)=> {
+        console.log(response);
+        loadLista()
+      });
 
   }; 
 
@@ -37,7 +42,7 @@ const FormBankAccount = () => {
     id_currency:'',
     initial_ammount:0,
     description: '',
-    id_user: '784f7322-e0ed-4930-b876-17778c183cb7'
+    id_user: user.user.id
   });
 
   const handleChange = (e) => {
@@ -48,28 +53,33 @@ const FormBankAccount = () => {
 
   const [currencies, setCurrencies] = useState([]);
   useEffect( () => {
-    console.log("un efecto");
-
-    Axios.get('http://localhost:3001/api/budget-control/currency').then((response)=>{ 
-      //setCurrencies(response)
-      //console.log(response.data);
-      setCurrencies(response.data);
-      console.log("Currencies: ");
-      console.log(currencies);
-      //console.log(user);
-    });
     
-  }, [show]);
+
+    if(show){
+      console.log("un efecto");
+      Axios.get('http://localhost:3001/api/budget-control/currency').then((response)=>{ 
+        //setCurrencies(response)
+        //console.log(response.data);
+        setCurrencies(response.data);
+        console.log("Currencies: ");
+        console.log(currencies);
+        //console.log(user);
+      });
+    }
+    
+    
+  }, [show, currencies.length]);
 
   return (
     <>
+      
       <Button variant="primary" onClick={handleShow} className="new-BkAcc" style={{borderRadius: '60%'}}>
-        <Plus size="lg" />
+        <Plus  size="lg"/>
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>New Bank Account</Modal.Title>
+          <Modal.Title>New Bank Account {user.user.id}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -95,7 +105,7 @@ const FormBankAccount = () => {
                     
                     currencies.map(
                       (currency) => (
-                          <option  value = {currency.id}>{currency.name +" - ("+currency.symbol+")" }</option>
+                          <option  key={currency.id} value = {currency.id}>{currency.name +" - ("+currency.symbol+")" }</option>
                       )
                     )
 

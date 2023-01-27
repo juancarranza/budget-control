@@ -41,15 +41,13 @@ function App() {
       {/* <BankAccount /> */}
       {/* <BankAccountList />  */}
       {/* <FormBankAccount /> */}
-
+      <NavBar />
       <Routes> 
-        <Route path='/' element={<NavBar />} >
-          <Route index element={<Home />} />
+          <Route path='/' element={<Home />} />
           <Route path='login' element={<Login />}/>
           <Route path='register' element={<Register />}/>
           <Route path='bank-account' element={<BankAccountList />} />
           <Route path='transaction' element={<TransactionList />} />
-        </Route>
       </Routes>
       
     

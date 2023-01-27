@@ -103,12 +103,20 @@ export async function createTransfer(request, response){
         console.log("from: "+id_bankaccount_from);
         const id_bankaccount_to = request.body.id_bankaccount_to;
         console.log("to: "+id_bankaccount_to);
-
-        //id that we need to get using the id_bankaccount_from as criteria
         const id_currency_from="96ab67dd-c81d-435c-a165-124aa994b7b3";
-        const id_currency_to="96ab67dd-c81d-435c-a165-124aa994b7b3";
+        const exchange_rate_from = 1;
 
-        //ids that we need to get from a quey
+        //Debit Ammount - Transactionn
+        const debit_ammount = ammount;
+
+        //Query to get the exchange_rate & id_currency for the Credit Account (Destiny)
+        const id_currency_to="96ab67dd-c81d-435c-a165-124aa994b7b3";
+        const exchange_rate_to = 7.8;
+        //Credit Ammount - Transactionn
+        const credit_ammount= ammount / exchange_rate_from * exchange_rate_to ;
+
+
+        //ids that we need to get from a query
         const id_category_expense="a7023279-fcc0-408e-a0c1-ebef304bd01a";
         const id_category_income="77b23950-326d-4daf-af72-aa16481223b2";
 
@@ -121,27 +129,27 @@ export async function createTransfer(request, response){
 
         });
 
-        const idexpense=newTransfer.id;
-        //console.log(idexpense);
-        const transaccion = await Transactionn.create({
-            ammount,
+        const idTransfer=newTransfer.id;
+        //Expense
+        const transaccion_debit = await Transactionn.create({
+            ammount: debit_ammount,
             description,
             status,
             id_bankaccount: id_bankaccount_from,
             id_category: id_category_expense,
             id_currency: id_currency_from,
-            id_transfer: idexpense
+            id_transfer: idTransfer
 
         });
-
-        const transaccionincome = await Transactionn.create({
-            ammount,
+        //Income
+        const transaccion_credit = await Transactionn.create({
+            ammount: credit_ammount,
             description,
             status,
             id_bankaccount: id_bankaccount_to,
             id_category: id_category_income,
             id_currency: id_currency_to,
-            id_transfer: idexpense
+            id_transfer: idTransfer
 
         });
         /*const expense = await Transactionn.create({//origin

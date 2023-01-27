@@ -9,16 +9,16 @@ import Axios from 'axios';
 const BankAccountList = () => {
 
   const [bankAccounts, setBankAccounts] = useState([]);
-  useEffect( () => {
+
+  const loadLista = () => {
     Axios.get('http://localhost:3001/api/budget-control/bank-account').then((response)=>{ 
-      //setCurrencies(response)
-      //console.log(response.data);
       setBankAccounts(response.data);
       console.log("Bank Accounts: ");
       console.log(bankAccounts);
-      
     });
-  },[]);
+  };
+
+  useEffect( () => loadLista(),[]);//[] cuando esta vacio significa que se ejecuta cuando se crea/monta el componente (1 sola vez)
 
   
 
@@ -41,7 +41,7 @@ const BankAccountList = () => {
           }
         </Accordion>
       </div>  
-      <FormBankAccount key="123456"/>
+      <FormBankAccount key="123456" loadLista={loadLista}/>
     </>
   );
 };

@@ -27,10 +27,11 @@ export async function createBankAccount(request, response){
         //const newProductInstance = new Product.build({name});
         //const newProduct = await newProductInstance.save();
 
-        response.send(newBankAccount);
+        response.status(200).send({success: true, message: 'Bank Account created.', bankAccount: newBankAccount});
     }
     catch(error){
         response.status(500).send({
+            success: false,
             message:"There was an error while creating a new Bank Account",
             error,
         });
