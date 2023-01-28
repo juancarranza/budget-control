@@ -30,7 +30,7 @@ const FormBankAccount = ({loadLista}) => {
     Axios.post('http://localhost:3001/api/budget-control/bank-account/create', { bankAccount }).
       then((response)=> {
         console.log(response);
-        loadLista()
+        loadLista();
       });
 
   }; 
@@ -79,7 +79,7 @@ const FormBankAccount = ({loadLista}) => {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>New Bank Account {user.user.id}</Modal.Title>
+          <Modal.Title>New Bank Account</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>

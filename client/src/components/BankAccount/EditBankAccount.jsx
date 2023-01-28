@@ -3,9 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Axios from 'axios';
-
+import { useSelector } from 'react-redux';
 
 const EditBankAccount = (props) => {
+
+  const user = useSelector((state) => state.user);
 
   const editClose = () => {
     props.onHide(false);
@@ -17,7 +19,7 @@ const EditBankAccount = (props) => {
     id_currency: props.bank_account.currency.id,
     initial_ammount: props.bank_account.initial_ammount,
     description: props.bank_account.description,
-    id_user: '784f7322-e0ed-4930-b876-17778c183cb7'
+    id_user: user.user.id
   });
 
   const [currencies, setCurrencies] = useState([]);
@@ -51,8 +53,9 @@ const EditBankAccount = (props) => {
     //console.log(currencies[0].id);
     //console.log("bankAccount");
     //console.log(bankAccount);
-    Axios.put('http://localhost:3001/api/budget-control/bank-account/edit', { bankAccount }).then((response)=> console.log(response));
-
+    Axios.put('http://localhost:3001/api/budget-control/bank-account/edit', { bankAccount }).then((response)=> {
+      props.loadLista()
+    });
   };
 
   return (

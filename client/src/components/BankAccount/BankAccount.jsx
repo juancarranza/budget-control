@@ -74,21 +74,21 @@ const BankAccount = (props) => {
           </Accordion.Collapse>
         </Card>
         <Transfer onHide={handleCloseTransfer} show={showTransfer} name_origin_acc={props.name} id_origin_acc={props.id}/>
-        <EditBankAccount onHide={handleCloseEdit} show={showEdit} bank_account={
-          { id: props.id, 
-            name: props.name, 
-            creation_date: props.creation_date,
-            initial_ammount: props.initial_ammount,
-            description: props.description,
-            currency: {
-              id: props.currency.id,
-              name: props.currency.name,
-              symbol: props.currency.symbol
+        <EditBankAccount onHide={handleCloseEdit} loadLista={props.loadLista} show={showEdit} bank_account={
+            { id: props.id, 
+              name: props.name, 
+              creation_date: props.creation_date,
+              initial_ammount: props.initial_ammount,
+              description: props.description,
+              currency: {
+                id: props.currency.id,
+                name: props.currency.name,
+                symbol: props.currency.symbol
+              },
             }
-          }
           } 
         />
-        <DeleteBankAccount onHide={handleCloseDelete} show={showDelete} account_name={props.name} account_id={props.id} />
+        <DeleteBankAccount onHide={handleCloseDelete} loadLista={props.loadLista} show={showDelete} account_name={props.name} account_id={props.id} />
         
     </>
   );

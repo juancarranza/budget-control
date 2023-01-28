@@ -36,7 +36,9 @@ const BankAccountList = () => {
                 initial_ammount= {bankAccount.initialAmmount}
                 description = {bankAccount.description} 
                 id= {bankAccount.id} 
-                key= {bankAccount.id} />
+                key= {bankAccount.id} 
+                loadLista={loadLista}
+                />
               ) 
           }
         </Accordion>

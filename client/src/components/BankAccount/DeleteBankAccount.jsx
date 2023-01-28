@@ -11,7 +11,9 @@ const DeleteBankAccount = (props) => {
   const deleteAccount = () => {
     deleteClose();
     const id = props.account_id;
-    Axios.put('http://localhost:3001/api/budget-control/bank-account/delete', { id }).then((response)=> console.log(response));
+    Axios.put('http://localhost:3001/api/budget-control/bank-account/delete', { id }).then((response)=> {
+      props.loadLista();
+    });
   };
   return (
     <>
