@@ -13,7 +13,7 @@ ALTER pluggable database all open;
 # comandor para abrir DB
 
 ```
-sqlplus / as sysdba
+conn / as sysdba
 ALTER PLUGGABLE DATABASE ORCLPDB OPEN;
 
 ```

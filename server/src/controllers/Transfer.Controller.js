@@ -127,7 +127,7 @@ export async function createTransfer(request, response){
         );
         //Validate if Bank Account does not exists!
         if(!bankAccountTo){
-            response.status(200).send({success: false, message: 'Bank Account destiny does not exists.'});
+            return response.status(200).send({success: false, message: 'Bank Account destiny does not exists.'});
         } 
         
         //Exchange Rate Destiny Currency
@@ -146,7 +146,7 @@ export async function createTransfer(request, response){
             }
         });
         if(!categoryExpense){
-            response.status(200).send({success: false, message: 'Category transfer for expense was not created.'});
+            return response.status(200).send({success: false, message: 'Category transfer for expense was not created.'});
         }
         const id_category_expense=categoryExpense.id;
         // Get Category -> transfer, income 
@@ -159,7 +159,7 @@ export async function createTransfer(request, response){
             }
         });
         if(!categoryIncome){
-            response.status(200).send({success: false, message: 'Category transfer for income was not created.'});
+            return response.status(200).send({success: false, message: 'Category transfer for income was not created.'});
         }
         const id_category_income=categoryIncome.id;
 
