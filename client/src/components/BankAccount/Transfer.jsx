@@ -15,31 +15,41 @@ const Transfer = (props) => {
     props.onHide(false);
   };
 
-  const [transfer, setTransfer] = useState({
+  const [transferencia, setTransferencia] = useState({
     description: '',
     ammount: 0,
-    id_bankaccount_to: '',
-    id_bankaccount_from: props.id_origin_acc,
-    id_currency_from: props.currency_origin.id,
-    exchange_rate_from: props.currency_origin.exchange_rate_from
+    id_bankaccount_to: ''
   });
 
   const handleChange = (e) => {
-    setTransfer({...transfer, [e.target.name]:e.target.value});
+    setTransferencia({...transferencia, [e.target.name]:e.target.value});
     console.log("Transfer: ");
-    console.log(transfer);
+    console.log(transferencia);
   };
 
   const handleTransfer= (e) => {
     e.preventDefault();
     transferClose();
     console.log("VALIDATE TRANSFER: ");
+    const transfer = {
+      description: transferencia.description,
+      ammount: transferencia.ammount,
+      id_bankaccount_to: transferencia.id_bankaccount_to,
+      id_bankaccount_from: props.id_origin_acc,
+      id_currency_from: props.currency_origin.id,
+      exchange_rate_from: props.currency_origin.exchange_rate_from
+    };
     console.log(transfer);
-    Axios.post('http://localhost:3001/api/budget-control/transfer/create', { transfer }).
+    /*Axios.post('http://localhost:3001/api/budget-control/transfer/create', { transfer }).
       then((response)=> {
         console.log(response);
         props.loadLista();
-      });
+      });*/
+    setTransferencia({
+      description: '',
+      ammount: 0,
+      id_bankaccount_to: ''
+    });
 
   }
 
@@ -88,7 +98,7 @@ const Transfer = (props) => {
                 type="number"
                 placeholder="0.00"
                 name="ammount"
-                value={transfer.ammount}
+                value={transferencia.ammount}
                 onChange={handleChange}
                 autoFocus
               />
@@ -100,7 +110,7 @@ const Transfer = (props) => {
               controlId="transfer.notes"
             >
               <Form.Label>Notes</Form.Label>
-              <Form.Control as="textarea" rows={3} name="description" value={transfer.description} onChange={handleChange} />
+              <Form.Control as="textarea" rows={3} name="description" value={transferencia.description} onChange={handleChange} />
             </Form.Group>
 
           </Form>
