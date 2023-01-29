@@ -3,9 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Axios from 'axios';
+import { useSelector } from 'react-redux';
+
 
 const Transfer = (props) => {
 
+  const user = useSelector((state) => state.user);
   const [bankAccounts, setBankAccounts] = useState([]);
 
   const transferClose= () => {
@@ -45,7 +48,7 @@ const Transfer = (props) => {
       Axios.get('http://localhost:3001/api/budget-control/bank-account').then((response)=>{ 
         const lista=response.data;
         const lista_filtrada=lista.filter((x)=>{
-          return x.id !==  props.id_origin_acc;
+          return x.id !==  props.id_origin_acc && x.id_user === user.user.id;
         });
         setBankAccounts(lista_filtrada);
         console.log("Bank Accounts: ");

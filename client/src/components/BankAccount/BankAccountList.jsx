@@ -5,14 +5,21 @@ import FormBankAccount from './FormBankAccount';
 import '../../styles/BankAccountList.css';
 import { useEffect, useState } from 'react';
 import Axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const BankAccountList = () => {
 
   const [bankAccounts, setBankAccounts] = useState([]);
+  const user = useSelector((state) => state.user);
 
   const loadLista = () => {
     Axios.get('http://localhost:3001/api/budget-control/bank-account').then((response)=>{ 
-      setBankAccounts(response.data);
+      const lista = response.data;
+      const lista_user = lista.filter( (x) => {
+        return x.id_user === user.user.id;
+      }
+      );
+      setBankAccounts(lista_user);
       console.log("Bank Accounts: ");
       console.log(bankAccounts);
     });
