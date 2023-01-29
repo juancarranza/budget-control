@@ -1,13 +1,60 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import Axios from 'axios';
 
 const Transfer = (props) => {
+
+  const [bankAccounts, setBankAccounts] = useState([]);
 
   const transferClose= () => {
     props.onHide(false);
   };
+
+  const [transfer, setTransfer] = useState({
+    description: '',
+    ammount: 0,
+    id_bankaccount_to: '',
+    id_bankaccount_from: props.id_origin_acc,
+    id_currency_from: props.currency_origin.id,
+    exchange_rate_from: props.currency_origin.exchange_rate_from
+  });
+
+  const handleChange = (e) => {
+    setTransfer({...transfer, [e.target.name]:e.target.value});
+    console.log("Transfer: ");
+    console.log(transfer);
+  };
+
+  const handleTransfer= (e) => {
+    e.preventDefault();
+    transferClose();
+    console.log("VALIDATE TRANSFER: ");
+    console.log(transfer);
+    Axios.post('http://localhost:3001/api/budget-control/transfer/create', { transfer }).
+      then((response)=> {
+        console.log(response);
+        props.loadLista();
+      });
+
+  }
+
+  useEffect(() => {
+    if(props.show){
+      Axios.get('http://localhost:3001/api/budget-control/bank-account').then((response)=>{ 
+        const lista=response.data;
+        const lista_filtrada=lista.filter((x)=>{
+          return x.id !==  props.id_origin_acc;
+        });
+        setBankAccounts(lista_filtrada);
+        console.log("Bank Accounts: ");
+        console.log(bankAccounts);
+      });
+    }
+    
+  }, [props.show])
+  
 
   return (
     <>
@@ -20,10 +67,16 @@ const Transfer = (props) => {
             <Form.Group
               className="mb-3"
               controlId="transfer.account">
-              <Form.Label>From {props.name_origin_acc} to:</Form.Label>
-              <Form.Select aria-label="Default select example">
-                <option value="1">Test Bank Account 1</option>
-                <option value="2">Test Bank Account 2</option>
+              <Form.Label>From <strong>{props.name_origin_acc}</strong> to:</Form.Label>
+              <Form.Select aria-label="Default select example" name="id_bankaccount_to" onChange={handleChange}>
+                <option value="none" >Select an Option</option>
+                {
+                  bankAccounts.map(
+                    (bankAccount) => (
+                      <option value={bankAccount.id} key={bankAccount.id} >{bankAccount.name + " - "+ bankAccount.symbol}</option>
+                      )
+                  )
+                }
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3" controlId="transfer.ammount">
@@ -31,6 +84,9 @@ const Transfer = (props) => {
               <Form.Control
                 type="number"
                 placeholder="0.00"
+                name="ammount"
+                value={transfer.ammount}
+                onChange={handleChange}
                 autoFocus
               />
             </Form.Group>
@@ -41,7 +97,7 @@ const Transfer = (props) => {
               controlId="transfer.notes"
             >
               <Form.Label>Notes</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Control as="textarea" rows={3} name="description" value={transfer.description} onChange={handleChange} />
             </Form.Group>
 
           </Form>
@@ -50,7 +106,7 @@ const Transfer = (props) => {
           <Button variant="light" onClick={transferClose} style={{ color: '#2196f3'}}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={transferClose}>
+          <Button variant="primary" onClick={handleTransfer}>
             Save
           </Button>
         </Modal.Footer>

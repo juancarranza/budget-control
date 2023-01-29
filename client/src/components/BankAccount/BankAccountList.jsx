@@ -30,7 +30,7 @@ const BankAccountList = () => {
             bankAccounts.map((bankAccount) => 
               <BankAccount 
                 balance= {bankAccount.initialAmmount + bankAccount.SUMA_TRANSACCIONES}
-                currency={{id: bankAccount.id_currency, symbol: bankAccount.symbol, name: bankAccount.CURRENCY}} 
+                currency={{id: bankAccount.id_currency, symbol: bankAccount.symbol, name: bankAccount.CURRENCY, exchangeRate: bankAccount.exchangeRate}} 
                 name= {bankAccount.name} 
                 creation_date= {bankAccount.createdAt} 
                 initial_ammount= {bankAccount.initialAmmount}

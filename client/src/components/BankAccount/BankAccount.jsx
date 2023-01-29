@@ -69,12 +69,26 @@ const BankAccount = (props) => {
             <Card.Body>
               <p>Creation date: {props.creation_date}</p>
               <p>Currency: {props.currency.name}</p>
+              <p>Currency ID: {props.currency.id}</p>
               <p>Initial ammount: {props.currency.symbol+' '+props.initial_ammount}</p>
             </Card.Body>
           </Accordion.Collapse>
         </Card>
-        <Transfer onHide={handleCloseTransfer} show={showTransfer} name_origin_acc={props.name} id_origin_acc={props.id}/>
-        <EditBankAccount onHide={handleCloseEdit} loadLista={props.loadLista} show={showEdit} bank_account={
+        <Transfer 
+          onHide={handleCloseTransfer} 
+          show={showTransfer} 
+          name_origin_acc={props.name} 
+          id_origin_acc={props.id} 
+          currency_origin={
+            {
+              id: props.currency.id, 
+              exchange_rate_from: props.currency.exchangeRate    
+            }
+          }
+          loadLista={props.loadLista} 
+        />
+        <EditBankAccount onHide={handleCloseEdit} loadLista={props.loadLista} show={showEdit} 
+          bank_account={
             { id: props.id, 
               name: props.name, 
               creation_date: props.creation_date,
@@ -88,7 +102,13 @@ const BankAccount = (props) => {
             }
           } 
         />
-        <DeleteBankAccount onHide={handleCloseDelete} loadLista={props.loadLista} show={showDelete} account_name={props.name} account_id={props.id} />
+        <DeleteBankAccount 
+          onHide={handleCloseDelete} 
+          loadLista={props.loadLista} 
+          show={showDelete} 
+          account_name={props.name} 
+          account_id={props.id} 
+        />
         
     </>
   );

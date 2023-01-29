@@ -33,7 +33,7 @@ const Transactionn = db.get().define(
 //Adding Foreign Keys -> User, Currency, Transfer & BankAccount
 Transactionn.belongsTo(Category, {foreignKey: "id_category"});// User FK 
 Transactionn.belongsTo(Currency, {foreignKey: "id_currency"});//Currency FK
-//Transactionn.belongsTo(Transfer, {foreignKey: "id_transfer"});//Transfer FK
+Transactionn.belongsTo(Transfer, {foreignKey: "id_transfer", allowNull: true});//Transfer FK
 Transactionn.belongsTo(BankAccount, {foreignKey: "id_bankaccount"});
 
 export default Transactionn;
