@@ -21,3 +21,11 @@
   font-size: 1.1rem;
   color:#F44336;
 }
+
+.visible{
+  visibility: visible;
+}
+
+.not-visible {
+  visibility: hidden;
+}
