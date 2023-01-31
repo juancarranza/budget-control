@@ -1,5 +1,6 @@
 
 import Category from "../models/Category.js";
+import { Op } from "sequelize";
 
 export async function createCategory(request, response){
     //console.log("here");
@@ -72,6 +73,7 @@ export async function getCategories(request, response){
 export async function updateCategory(request, response){
     //console.log("here");
     try{
+        const id = request.body.category.id;
         const categoryType= request.body.category.categoryType;
         //const categoryType= request.body.categoryType;
         console.log(categoryType);
@@ -79,6 +81,26 @@ export async function updateCategory(request, response){
         //const name = request.body.name;
         console.log( "NO ENTRO");
         const description = request.body.category.description;
+        
+        //Validate name and Category Type
+        const categoryExists= await Category.findAll(  
+            {
+                attributes: ['id'],
+                where: {
+                    id: {
+                        [Op.not]: id
+                    },
+                    categoryType,
+                    name
+                }
+            }
+        );
+        console.log(categoryExists);
+        if(categoryExists && categoryExists.length>0){
+            //console.log("ENTRO");
+            return response.status(200).send( { success: false, message: 'The category already exists, please change the name AND/OR categoryType.'} );
+        }
+
         //const description = request.body.description;
         const updatedCategory = await Category.update( 
             {
@@ -94,8 +116,37 @@ export async function updateCategory(request, response){
     }
     catch(error){
         response.status(500).send({
-            message:"There was an error while creating a new product",
+            success: false,
+            message:"There was an error while updating the category",
             error,
         });
     }
 }//create
+
+export async function deleteCategory(request, response){
+    try{
+        const id = request.body.category.id;
+        const status = "deleted";
+
+        //const description = request.body.description;
+        const updatedCategory = await Category.update( 
+            {
+                status
+            },
+            {
+                where: {
+                    id
+                }
+            } 
+        );
+       
+        return response.status(200).send( { success: true, message: 'The category had been deleted successfully.', updatedCategory } );
+    }
+    catch(error){
+        response.status(500).send({
+            success: false,
+            message:"There was an error while updating the category",
+            error,
+        });
+    }
+}//delete
