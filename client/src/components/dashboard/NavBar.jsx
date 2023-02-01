@@ -8,7 +8,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import {Outlet, Link} from "react-router-dom";
 import { Speedometer, Bank, Bank2, ListUl } from 'react-bootstrap-icons';
-import { MdDashboard } from 'react-icons/md';
+import { MdDashboard, MdOutlineLoyalty } from 'react-icons/md';
 import '../../styles/SideBar.css';
 import { useSelector } from 'react-redux';
 
@@ -30,6 +30,7 @@ const NavBar = () => {
               <Nav.Link as={Link} to="/" className='nav-link'><MdDashboard /> Dashboard</Nav.Link>
               <Nav.Link as={Link} to="/bank-account" ><Bank2 /> BankAccounts</Nav.Link>
               <Nav.Link as={Link} to="/transaction" ><ListUl /> Transactions</Nav.Link>
+              <Nav.Link as={Link} to="/category" ><MdOutlineLoyalty /> Categories</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

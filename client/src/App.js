@@ -1,8 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import BankAccount from './components/BankAccount/BankAccount';
 import BankAccountList from './components/BankAccount/BankAccountList';
-import FormBankAccount from './components/BankAccount/FormBankAccount';
+import CategoryList from './components/Categories/CategoryList';
 import TransactionList from './components/Transactions/TransactionList';
 import Home from './components/dashboard/Home';
 import NavBar from './components/dashboard/NavBar';
@@ -48,6 +47,7 @@ function App() {
           <Route path='register' element={<Register />}/>
           <Route path='bank-account' element={<BankAccountList />} />
           <Route path='transaction' element={<TransactionList />} />
+          <Route path = 'category' element= {<CategoryList />}  />
       </Routes>
       
     
