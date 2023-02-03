@@ -4,8 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import '../../styles/FormBankAccount.css';
 import { Plus } from 'react-bootstrap-icons';
+import Axios from 'axios';
 
-const FormCategory = () => {
+const FormCategory = ( {loadCategories} ) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -25,6 +26,11 @@ const FormCategory = () => {
   const handleCreate = (e) => {
     handleClose();
     console.log("Create");
+    Axios.post('http://localhost:3001/api/budget-control/category/create', { category }).
+      then((response)=> {
+        console.log(response);
+        loadCategories();
+      });
   };
 
   return (

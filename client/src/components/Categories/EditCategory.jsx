@@ -3,12 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import '../../styles/FormBankAccount.css';
+import Axios from 'axios';
 
 const EditCategory = (props) => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const [category, setCategory] = useState({
     id: props.category.id,
     categoryType: props.category.categoryType,
@@ -25,6 +22,12 @@ const EditCategory = (props) => {
   const handleUpdate = (e) =>{
     console.log("update");
     editClose();
+    Axios.put('http://localhost:3001/api/budget-control/category/update', { category }).
+      then((response)=> {
+        console.log(response);
+        props.loadCategories();
+      });
+    props.loadCategories();
   };
 
   const editClose = () => {

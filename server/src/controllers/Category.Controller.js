@@ -23,11 +23,9 @@ export async function createCategory(request, response){
         );
         console.log(categoryExists);
         if(categoryExists && categoryExists.length>0){
-            console.log("ENTRO");
             return response.status(200).send( { success: false, message: 'The category already exists, please change the name & categoryType.'} );
         }
 
-        console.log( "NO ENTRO");
         const description = request.body.category.description;
         //const description = request.body.description;
         const status = "activo";
@@ -79,9 +77,7 @@ export async function updateCategory(request, response){
         console.log(categoryType);
         const name = request.body.category.name;
         //const name = request.body.name;
-        console.log( "NO ENTRO");
         const description = request.body.category.description;
-        
         //Validate name and Category Type
         const categoryExists= await Category.findAll(  
             {
@@ -100,7 +96,6 @@ export async function updateCategory(request, response){
             //console.log("ENTRO");
             return response.status(200).send( { success: false, message: 'The category already exists, please change the name AND/OR categoryType.'} );
         }
-
         //const description = request.body.description;
         const updatedCategory = await Category.update( 
             {
@@ -127,7 +122,6 @@ export async function deleteCategory(request, response){
     try{
         const id = request.body.category.id;
         const status = "deleted";
-
         //const description = request.body.description;
         const updatedCategory = await Category.update( 
             {

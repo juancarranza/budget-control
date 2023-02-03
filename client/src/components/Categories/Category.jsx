@@ -75,9 +75,11 @@ const Category = (props) => {
           category={
             { id: props.id, 
               name: props.name, 
+              categoryType: props.categoryType,
               description: props.description
             }
-          }     
+          }
+          loadCategories = { props.loadCategories }     
         />
 
         <DeleteCategory 
@@ -85,6 +87,7 @@ const Category = (props) => {
           show={showDelete} 
           category_name={props.name} 
           category_id={props.id} 
+          loadCategories = { props.loadCategories }  
         />
       </>
   );

@@ -11,7 +11,12 @@ const DeleteCategory = (props) => {
 
   const deleteCategory = () => {
     deleteClose();
-    const id = props.category_id;
+    const category = { id: props.category_id }
+    Axios.put('http://localhost:3001/api/budget-control/category/delete', { category }).
+      then((response)=> {
+        console.log(response);
+        props.loadCategories();
+      });
   };
 
   return (

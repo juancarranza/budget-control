@@ -68,7 +68,7 @@ const FormBankAccount = ({loadLista}) => {
     }
     
     
-  }, [show, currencies.length]);
+  }, [show]);
 
   return (
     <>
