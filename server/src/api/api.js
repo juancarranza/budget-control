@@ -6,6 +6,7 @@ import categoryRouter from "../routes/Category.Router.js";
 import currencyRouter from "../routes/Currency.Router.js";
 import bankAccountRouter from "../routes/BankAccount.Router.js";
 import transferRouter from "../routes/Transfer.Router.js";
+import transactionnRouter from "../routes/Transactionn.Router.js";
 
 const app = express();
 
@@ -15,6 +16,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 //url base de mi api
-app.use('/api/budget-control', productRouter, userRouter, categoryRouter, currencyRouter, bankAccountRouter, transferRouter);
+app.use('/api/budget-control', productRouter, userRouter, categoryRouter, currencyRouter, bankAccountRouter, transferRouter, transactionnRouter);
 
 export default app;

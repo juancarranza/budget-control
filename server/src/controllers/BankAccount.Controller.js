@@ -84,23 +84,7 @@ export async function deleteBankAccount(request, response){
                 }
             } 
         );
-        // const delTransfer = await Transfer.update(
-        //     {
-        //         status
-        //     },
-        //     {
-        //         where: {
-        //             [Op.or] : [
-        //                 {
-        //                     id_bankaccount_from: id
-        //                 },
-        //                 {
-        //                  id_bankaccount_to: id
-        //                 }
-        //             ]
-        //         }
-        //     }
-        // );
+
         const delBankAccount = await BankAccount.update( 
             {
                 status
@@ -129,12 +113,6 @@ export async function getBankAccounts(request, response){
          {  
             type: QueryTypes.SELECT 
          });
-        // const bankAccounts = await db.get().query('SELECT ba."id", ba."name", ba."description" , ba."initialAmmount" , ba."status", ba."createdAt", c."name" AS currency, c."symbol"  FROM JUAN."Currencies" c, JUAN."BankAccounts" ba WHERE c."id" = ba."id_currency" AND ba."status" = :status AND c.status =:status ;', 
-        // {   
-        //     replacements: { status: estado }, 
-        //     type: QueryTypes.SELECT 
-        // });
-
         response.send(bankAccounts);
     }catch(error){
         response.status(500).send({
