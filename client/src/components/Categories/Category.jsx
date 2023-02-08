@@ -42,7 +42,8 @@ const Category = (props) => {
             <div className='d-flex justify-content-between'>
               <div className='big_text_2'>{props.name[0].toUpperCase()+props.name.substring(1)}</div>    
               <div className={props.categoryType.toUpperCase() === 'INCOME'?'positive_balance':'negative_balance'}>
-                {props.categoryType[0].toUpperCase() + props.categoryType.substring(1)}</div>
+                {props.categoryType[0].toUpperCase() + props.categoryType.substring(1)}
+              </div>
             </div>
             <div className='d-flex justify-content-end align-items-end'>
               <CustomToggle eventKey={props.id}>
