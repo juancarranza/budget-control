@@ -9,6 +9,8 @@ import { login } from '../redux/user/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {Link} from "react-router-dom";
+
 
 const Login = () => {
   const navigate= useNavigate();
@@ -61,8 +63,7 @@ const Login = () => {
       console.log("here: "+user.isLogged);
       navigate('/login');
     }else{
-
-      navigate('/');
+      navigate('/');//go to Home (Dashboard)
     }
 
   }, [user?.isLogged]
@@ -91,7 +92,7 @@ const Login = () => {
             </Card.Body>
             <Alert key='light' variant='light'>
               Need an account? Create an account &nbsp;
-              <Alert.Link href="#">here</Alert.Link>
+              <Alert.Link as={Link} to="/register">here</Alert.Link>
             </Alert>
           </Card>
       </div>

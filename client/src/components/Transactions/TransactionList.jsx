@@ -7,6 +7,7 @@ import '../../styles/BankAccountList.css';
 import Axios from 'axios';
 import FormTransaction from './FormTransaction';
 import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from 'react-redux';
 
 /*
     Component that will be used when the we clicked on:
@@ -14,9 +15,9 @@ import { v4 as uuidv4 } from 'uuid';
     2. Account
 */
 const TransactionList = () => {
-
+  const user = useSelector((state) => state.user);
   const transaction = {
-    id_user: '784f7322-e0ed-4930-b876-17778c183cb7'
+    id_user: user.user.id
   };
 
   const [transactions, setTransactions] = useState([]);

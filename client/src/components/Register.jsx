@@ -6,9 +6,10 @@ import Card from 'react-bootstrap/Card';
 import Alert from 'react-bootstrap/Alert';
 import {React, useState} from 'react';
 import Axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-
+  const navigate= useNavigate();
   const [usuario, setUsuario] = useState({
     firstName:'',
     lastName:'',
@@ -39,6 +40,7 @@ const Register = () => {
     e.preventDefault();
     Axios.post('http://localhost:3001/api/budget-control/user/register', { usuario }).then((response)=> console.log(response));
     console.log(usuario);
+    navigate('/login');
   };
 
   
