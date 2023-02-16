@@ -17,6 +17,19 @@ const FormCategory = ( {loadCategories} ) => {
     description:''
   });
 
+  const resetValues = () => {
+    setCategory({
+      categoryType:'',
+      name:'',
+      description:''
+    });
+  };
+
+  const closeForm = () =>{
+    handleClose();
+    resetValues();
+  };
+
   const handleChange = (e) => {
     setCategory({...category, [e.target.name]:e.target.value});
     console.log("Category: ");
@@ -31,6 +44,7 @@ const FormCategory = ( {loadCategories} ) => {
         console.log(response);
         loadCategories();
       });
+    resetValues();
   };
 
   return (
@@ -89,7 +103,7 @@ const FormCategory = ( {loadCategories} ) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="light" onClick={handleClose} style={{ color: '#2196f3'}}>
+          <Button variant="light" onClick={closeForm} style={{ color: '#2196f3'}}>
             Close
           </Button>
           <Button variant="primary" onClick={handleCreate}>

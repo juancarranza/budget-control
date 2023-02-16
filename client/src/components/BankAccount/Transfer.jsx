@@ -40,11 +40,11 @@ const Transfer = (props) => {
       exchange_rate_from: props.currency_origin.exchange_rate_from
     };
     console.log(transfer);
-    /*Axios.post('http://localhost:3001/api/budget-control/transfer/create', { transfer }).
+    Axios.post('http://localhost:3001/api/budget-control/transfer/create', { transfer }).
       then((response)=> {
         console.log(response);
         props.loadLista();
-      });*/
+      });
     setTransferencia({
       description: '',
       ammount: 0,

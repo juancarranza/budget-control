@@ -2,15 +2,13 @@ import { React, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { CircleFill } from 'react-bootstrap-icons';
 import { Plus } from 'react-bootstrap-icons';
-import '../../styles/FormBankAccount.css';
+import '../../styles/FormTransaction.css';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 
-const FormIncome = () => {
+const FormTransaction = ({ loadTransactions, transactionType }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -19,12 +17,30 @@ const FormIncome = () => {
     ammount:'',
     description:'',
     id_category:'',
-    id_bankaccount:''
+    id_bankaccount:'',
+    type: transactionType
   });
   const handleChange = (e) => {
     setTransaction({...transaction, [e.target.name]:e.target.value});
     console.log("Income: ");
     console.log(transaction);
+  };
+
+  const closeForm = () =>{
+    handleClose();
+    resetValues();
+  };
+
+  const resetValues = () =>{
+    setTransaction(
+      {
+        ammount:'',
+        description:'',
+        id_category:'',
+        id_bankaccount:'',
+        type: transactionType
+      }
+    );
   };
 
   //----load Categories--------------
@@ -34,7 +50,7 @@ const FormIncome = () => {
       Axios.get('http://localhost:3001/api/budget-control/category').then(
         (response)=>{
           const lista=response.data.categories;
-          const lista_category= lista.filter( (x) => {return x.categoryType === 'income';});
+          const lista_category= lista.filter( (x) => {return x.categoryType === transactionType && x.name!== 'transfer';});
           setCategories(lista_category);
         }
       );
@@ -57,15 +73,27 @@ const FormIncome = () => {
     }
   },[show]);
 
+  const saveTransaction = () =>{
+    console.log("Transaction: ");
+    console.log(transaction);
+    Axios.post('http://localhost:3001/api/budget-control/transaction/create', { transaction })
+    .then((response)=> {
+      console.log(response);
+      loadTransactions();
+    });
+    handleClose();
+    resetValues();
+  }
+
   return (
     <>
-        <Button variant="success" onClick={handleShow} className="new-BkAcc" style={{borderRadius: '60%'}}>
+        <Button variant={transactionType==='income'?'success':'danger'} onClick={handleShow} className="new-transaction" style={{borderRadius: '60%'}}>
           <Plus  size="lg"/>
         </Button>
 
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>New Income</Modal.Title>
+          <Modal.Title>New {transactionType[0].toUpperCase() + transactionType.substring(1)}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -93,7 +121,7 @@ const FormIncome = () => {
 
             <Form.Group className="mb-3" as={Col} controlId="Value">
               <Form.Label>Value</Form.Label>
-              <CircleFill />
+              
               <Form.Control
                 type="number"
                 placeholder="0.00"
@@ -141,11 +169,11 @@ const FormIncome = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="light" onClick={handleClose} style={{ color: '#2196f3'}}>
+          <Button variant="light" onClick={closeForm} style={{ color: '#2196f3'}}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Create
+          <Button variant={transactionType==='income'?'success':'danger'} onClick={saveTransaction}>
+            Save
           </Button>
         </Modal.Footer>
       </Modal>
@@ -153,4 +181,4 @@ const FormIncome = () => {
   );
 };
 
-export default FormIncome;
+export default FormTransaction;

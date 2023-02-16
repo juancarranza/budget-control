@@ -1,31 +1,37 @@
 
 import {  QueryTypes } from "sequelize";
 import Transactionn from "../models/Transactionn.js";
-import Currency from "../models/Currency.js";
+//import Currency from "../models/Currency.js";
 import db from "../db/index.js";
+import BankAccount from "../models/BankAccount.js";
 
 
 export async function createTransaction(request, response){
     try{
-        const ammount = request.body.transaction.ammount;
+        let ammount = request.body.transaction.ammount;
+        if(request.body.transaction.type === 'expense'){
+            console.log('llego create');
+            ammount = parseFloat(ammount) * (-1);
+        }
+         
         console.log(ammount);
         const description = request.body.transaction.description;
         console.log(description);
         const status = "activo";
         console.log(status);
         const id_category= request.body.transaction.id_category;
-        console.log(id_user);
+        //console.log(id_user);
         // const id_currency = request.body.transaction.id_currency;
         // console.log(id_currency);
         const id_bankaccount = request.body.transaction.id_bankaccount;
         console.log(id_bankaccount);
-        const currency = await Currency.findOne( {
-            attributes: ['id'],
+        const bankAccount = await BankAccount.findOne( {
+            attributes: ['id_currency'],
             where: {
-                id
+                id:id_bankaccount
             }
         });
-        const id_currency=currency.id;
+        const id_currency=bankAccount.id_currency;
         //const newProduct= await Product.build({ name }).save();
         const newTransaction= await Transactionn.create( { ammount, description, status, id_category, id_currency, id_bankaccount } );
 

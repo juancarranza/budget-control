@@ -6,6 +6,7 @@ import { Eye, ThreeDotsVertical } from 'react-bootstrap-icons';
 import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import '../../styles/BankAccountList.css';
+import '../../styles/BankAccount.css';
 
 function CustomToggle({ eventKey }) {
 
@@ -41,7 +42,7 @@ const Transaction = (props) => {
             <div className='d-flex justify-content-end align-items-end'>
               <CustomToggle eventKey={props.id}>
               </CustomToggle>
-              <Dropdown className={'visible' }>
+              <Dropdown className={ props.category.name === 'transfer'? 'not-visible':'visible' }>
                 <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                   <ThreeDotsVertical />
                 </Dropdown.Toggle>

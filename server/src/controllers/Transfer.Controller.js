@@ -135,6 +135,8 @@ export async function createTransfer(request, response){
         const id_currency_to = bankAccountTo[0].id_currency;
         //Credit Ammount - Transactionn
         const credit_ammount= ammount / exchange_rate_from * exchange_rate_to ;
+        console.log("Credit Ammount:");
+        console.log(credit_ammount);
 
         // Get Category -> transfer, expense 
         const categoryExpense= await Category.findOne({

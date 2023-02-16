@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { login } from "./actions";
 
+const token = localStorage.getItem('budget_token');
+
 const initialState = {
     isLogged: false,
     user: {},
     error: undefined,
-    loading: false
+    loading: false,
+    toke: token ? token: null,
 };
 
 export const userSlice = createSlice({

@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-
+import jwt from "jsonwebtoken";
+import {config} from "dotenv";
 
 
 export async function register(request, response){
@@ -33,7 +34,7 @@ export async function register(request, response){
 }//end register
 
 export async function login(request, response){
-    
+    config();
     try{
         console.log("here hola1");
         const username = request.body.loginCredentials.username;
@@ -57,6 +58,20 @@ export async function login(request, response){
             console.log("=---------------");
             const login= await bcrypt.compare(password, user.password);
             result = login ? user : "Wrong username/password combination!";
+            if(login){
+                const token = jwt.sign(
+                    {
+                        user_id: user.id,
+                        username: user.username
+                    },
+                    process.env.TOKEN_KEY,
+                    {
+                        expiresIn: "2h"
+                    }
+
+                );
+                result.token = token;
+            }
             console.log(result)
             console.log("=---------------");
         }else{

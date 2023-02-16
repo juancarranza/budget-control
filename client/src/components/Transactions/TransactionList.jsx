@@ -5,6 +5,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import Transaction from './Transaction';
 import '../../styles/BankAccountList.css';
 import Axios from 'axios';
+import FormTransaction from './FormTransaction';
+import { v4 as uuidv4 } from 'uuid';
 
 /*
     Component that will be used when the we clicked on:
@@ -80,6 +82,8 @@ const TransactionList = () => {
           <Transaction /> */}
         </Accordion>
       </div>
+       <FormTransaction loadTransactions={loadTransactions} transactionType='income' key={uuidv4()}/> 
+      <FormTransaction loadTransactions={loadTransactions} transactionType='expense' key={uuidv4()}/>
     </>
   );
 };

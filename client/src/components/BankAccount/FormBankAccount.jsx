@@ -17,6 +17,20 @@ const FormBankAccount = ({loadLista}) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const closeForm = () =>{
+    resetValues();
+    handleClose();
+  };
+
+  const resetValues = () =>{
+    setBankAccount({
+      name: '',
+      id_currency:'',
+      initial_ammount:0,
+      description: '',
+      id_user: user.user.id
+    });
+  };
   const handleCreate = (e) => {
     
     setShow(false);
@@ -32,7 +46,7 @@ const FormBankAccount = ({loadLista}) => {
         console.log(response);
         loadLista();
       });
-
+    resetValues();
   }; 
 
   
@@ -138,7 +152,7 @@ const FormBankAccount = ({loadLista}) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="light" onClick={handleClose} style={{ color: '#2196f3'}}>
+          <Button variant="light" onClick={closeForm} style={{ color: '#2196f3'}}>
             Close
           </Button>
           <Button variant="primary" onClick={handleCreate}>
