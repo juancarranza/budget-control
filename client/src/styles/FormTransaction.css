@@ -6,3 +6,17 @@
   bottom: 10px;
   position: absolute;  */
 }
+
+.botones-container  {
+  top: 60%;
+  left: 95%;
+  transform: translate(-50%,-50%);
+  position: fixed;
+  z-index: 1000;
+
+}
+
+.botones-container button{
+  margin-bottom: 0.625rem;
+  box-shadow: 4px 5px 5px 0px rgba(158,158,158,1);
+}

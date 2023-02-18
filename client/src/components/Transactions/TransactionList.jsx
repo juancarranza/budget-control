@@ -8,6 +8,7 @@ import Axios from 'axios';
 import FormTransaction from './FormTransaction';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector } from 'react-redux';
+import '../../styles/FormTransaction.css';
 
 /*
     Component that will be used when the we clicked on:
@@ -82,9 +83,13 @@ const TransactionList = () => {
           {/* <Transaction />
           <Transaction /> */}
         </Accordion>
+        
       </div>
-       <FormTransaction loadTransactions={loadTransactions} transactionType='income' key={uuidv4()}/> 
-      <FormTransaction loadTransactions={loadTransactions} transactionType='expense' key={uuidv4()}/>
+      <div className='botones-container'>
+          <FormTransaction loadTransactions={loadTransactions} transactionType='income' key={uuidv4()}/> 
+          <FormTransaction loadTransactions={loadTransactions} transactionType='expense' key={uuidv4()}/>
+      </div>
+       
     </>
   );
 };

@@ -58,6 +58,18 @@ const EditBankAccount = (props) => {
     });
   };
 
+  const getCurrencySelect = (bankAccount_currency) =>{
+    console.log("getCurrencySelect: ");
+    console.log(bankAccount_currency, currencies);
+    const [currency] = currencies.filter( (currency_option) => currency_option.id === bankAccount_currency);
+    if(!currency){
+      return currencies[0];
+    }
+    console.log("return currency: ");
+    console.log(currency);
+    return currency.id;
+  };
+
   return (
     <>
       <Modal show={props.show} onHide={editClose}>
@@ -82,7 +94,7 @@ const EditBankAccount = (props) => {
               controlId="exampleForm.Select"
             >
               <Form.Label>Currency</Form.Label>
-              <Form.Select aria-label="Default select example" onChange={handleChange} name="id_currency" >
+              <Form.Select aria-label="Default select example" onChange={handleChange} name="id_currency" value={bankAccount.id_currency} >
               { 
                   currencies.map(
                     (currency) => (
