@@ -7,6 +7,9 @@ import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import '../../styles/BankAccountList.css';
 import '../../styles/BankAccount.css';
+import EditTransaction from './EditTransaction';
+import { v4 as uuidv4 } from 'uuid';
+import DeleteTransaction from './DeleteTransaction';
 
 function CustomToggle({ eventKey }) {
 
@@ -48,7 +51,7 @@ const Transaction = (props) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={handleShowEdit} >Edit</Dropdown.Item>
-                  <Dropdown.Item onClick={handleShowDelete} >Delete Category</Dropdown.Item>
+                  <Dropdown.Item onClick={handleShowDelete} >Delete Transaction</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown> 
             </div>
@@ -61,6 +64,31 @@ const Transaction = (props) => {
             </Card.Body>
           </Accordion.Collapse>
       </Card>
+      <EditTransaction 
+        key={uuidv4()}
+        onHide = {handleCloseEdit}
+        show = {showEdit}
+        transaction = {
+          {
+            id: props.id,
+            ammount: props.ammount,
+            id_category: props.category.id,
+            id_bankaccount: props.bank_account.id,
+            type: props.ammount >=0 ? 'income':'expense'  
+          }
+        }
+        loadTransactions = {props.loadTransactions}      
+      />
+
+      <DeleteTransaction 
+      key = {uuidv4()}
+      onHide={handleCloseDelete}
+      show = {showDelete}
+      transaction_id={props.id}
+      category_name = {props.category.name}
+      loadTransactions = {props.loadTransactions}  
+      />
+
     </>
   );
 };

@@ -58,17 +58,17 @@ const EditBankAccount = (props) => {
     });
   };
 
-  const getCurrencySelect = (bankAccount_currency) =>{
-    console.log("getCurrencySelect: ");
-    console.log(bankAccount_currency, currencies);
-    const [currency] = currencies.filter( (currency_option) => currency_option.id === bankAccount_currency);
-    if(!currency){
-      return currencies[0];
-    }
-    console.log("return currency: ");
-    console.log(currency);
-    return currency.id;
-  };
+  // const getCurrencySelect = (bankAccount_currency) =>{
+  //   console.log("getCurrencySelect: ");
+  //   console.log(bankAccount_currency, currencies);
+  //   const [currency] = currencies.filter( (currency_option) => currency_option.id === bankAccount_currency);
+  //   if(!currency){
+  //     return currencies[0];
+  //   }
+  //   console.log("return currency: ");
+  //   console.log(currency);
+  //   return currency.id;
+  // };
 
   return (
     <>

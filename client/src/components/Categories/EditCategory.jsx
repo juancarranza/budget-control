@@ -62,8 +62,9 @@ const EditCategory = (props) => {
                 aria-label="Default select example" 
                 onChange={handleChange} 
                 name="categoryType" 
+                value = {category.categoryType}
               >
-                  <option value="none" >Select an Option</option>
+                  
                   <option value="expense" >Expense</option>
                   <option value="income" >Income</option>
               </Form.Select>

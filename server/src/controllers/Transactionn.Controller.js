@@ -68,7 +68,14 @@ export async function updateTransaction(request, response){
     try{
         const id = request.body.transaction.id;
         console.log(id);
-        const ammount = request.body.transaction.ammount;
+        let ammount = request.body.transaction.ammount;
+        if(parseFloat(ammount)>=0 && request.body.transaction.type==='expense'){
+            ammount=ammount*(-1);
+        }
+
+        if(parseFloat(ammount)<=0 && request.body.transaction.type==='expense'){
+            ammount=ammount*(-1);
+        }
         console.log(ammount);
         const description = request.body.transaction.description;
         console.log(description);

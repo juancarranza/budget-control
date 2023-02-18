@@ -38,13 +38,13 @@ const TransactionList = () => {
     <>
       <div className='container list-bnk-acc'>
         
-          <Card>
+          {/* <Card>
             <Card.Body>
               <div className='d-flex justify-content-between' >
                 <CaretLeftFill /> <div className='header-text'>Wallet<br/>December 2022</div> <CaretRightFill />
               </div>
             </Card.Body>
-          </Card>
+          </Card> */}
         <Accordion defaultActiveKey="0">
           {
             transactions.map(
@@ -76,7 +76,9 @@ const TransactionList = () => {
                       id: transaction.id_bankaccount,
                       name: transaction.BANK_ACCOUNT
                     }
-                  } 
+                  }
+                  
+                  loadTransactions = {loadTransactions}
                 />
             )
           }

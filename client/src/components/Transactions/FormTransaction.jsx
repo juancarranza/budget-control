@@ -113,7 +113,7 @@ const FormTransaction = ({ loadTransactions, transactionType }) => {
                 {
                   categories.map(
                     (category)=>
-                      <option value={category.id}>{category.name}</option>
+                      <option value={category.id} key={category.id}>{category.name}</option>
                   )//end categories.map
                 }
               </Form.Select>
@@ -146,7 +146,7 @@ const FormTransaction = ({ loadTransactions, transactionType }) => {
                 {
                   bankAccounts.map(
                     (account) =>
-                      <option value={account.id} >{account.name}</option>
+                      <option value={account.id} key={account.id}>{account.name}</option>
                   )//end bankaccounts
                 }
               </Form.Select>
