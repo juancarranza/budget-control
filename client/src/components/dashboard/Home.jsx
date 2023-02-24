@@ -40,6 +40,7 @@ const Home = () => {
   const options = {
     title: "Income vs Expenses",
     is3D: true,
+    //pieHole: 0.2,
   };
 
   return (
