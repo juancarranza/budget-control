@@ -19,8 +19,8 @@ const Home = () => {
     Axios.post('http://localhost:3001/api/budget-control/summaryTransactions', { transaction }).then((response)=>{ 
       const summaryTransactions = response.data;
       console.log(summaryTransactions);
-      setIncome(summaryTransactions[0].TOTAL);
-      setExpense(summaryTransactions[1].TOTAL*(-1))
+      setIncome(parseFloat(summaryTransactions[0].TOTAL));
+      setExpense(parseFloat(summaryTransactions[1].TOTAL*(-1)))
       //const propertyNames = Object.keys(summaryTransactions[0]);
       //console.log("Property Names: ");
       //console.log(propertyNames);
@@ -37,41 +37,25 @@ const Home = () => {
     ["Expenses", expense],
   ];
 
-
-  
-
-  // const data2 = [
-
-  // ];
-  
   const options = {
     title: "Income vs Expenses",
     is3D: true,
   };
 
-  const options2 = {
-    title: "Income Categories",
-  };
-
   return (
-    <>
-    { <div onClick={ () => {
-      console.log("click")
-      dispatch(actions.logout())
-    }}>Logout!!</div> }
-    
+    <> 
     <Card style={{ width: '18rem'}}>
       <Card.Body>
         <Card.Title>Summary</Card.Title>
         <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
         <Card.Text>
-        <Chart
-          chartType="PieChart"
-          data={data}
-          options={options}
-          width={"100%"}
-          height={"100%"}
-          />
+          <Chart
+            chartType="PieChart"
+            data={data}
+            options={options}
+            width={"100%"}
+            height={"100%"}
+            />
         </Card.Text>
         {/* <Card.Link href="#">Card Link</Card.Link>
         <Card.Link href="#">Another Link</Card.Link> */}

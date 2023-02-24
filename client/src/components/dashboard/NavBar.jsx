@@ -11,12 +11,14 @@ import { Speedometer, Bank, Bank2, ListUl } from 'react-bootstrap-icons';
 import { MdDashboard, MdOutlineLoyalty } from 'react-icons/md';
 import '../../styles/SideBar.css';
 import { useSelector } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
+import {actions } from '../../redux/user/user.slice';
 
 const NavBar = () => {
 
   //const {isLogged} = useSelector(state => state.user);
   const user = useSelector(state => state.user)
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -32,6 +34,12 @@ const NavBar = () => {
               <Nav.Link as={Link} to="/transaction" ><ListUl /> Transactions</Nav.Link>
               <Nav.Link as={Link} to="/category" ><MdOutlineLoyalty /> Categories</Nav.Link>
             </Nav>
+            <NavDropdown title={user.user.username}>
+              <NavDropdown.Item onClick={ () => {
+                    //console.log("click")
+                    dispatch(actions.logout())} 
+              }>Logout</NavDropdown.Item>
+            </NavDropdown>
           </Navbar.Collapse>
         </Container>
       </Navbar>
