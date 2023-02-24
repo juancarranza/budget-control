@@ -4,11 +4,11 @@ import { login } from "./actions";
 const token = localStorage.getItem('budget_token');
 
 const initialState = {
-    isLogged: false,
+    isLogged: token? true:false,
     user: {},
     error: undefined,
     loading: false,
-    toke: token ? token: null,
+    token: token ? token: null,
 };
 
 export const userSlice = createSlice({
@@ -16,7 +16,8 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) =>{
-            state.isLogged=false
+            state.isLogged=false;
+            localStorage.removeItem("budget_token");
         }
     },
     extraReducers: (builder) =>{
@@ -28,14 +29,15 @@ export const userSlice = createSlice({
         });
 
         builder.addCase(login.fulfilled, (state, action) =>{
-            const { user } = action.payload;
+            const { user, token } = action.payload;
 
             console.log("usuario: ");
             console.log(user);
-
+            localStorage.setItem("budget_token", token);
             return {
                 ...state,
                 user,
+                token,
                 isLogged: true,
                 loading: false, 
                 error: undefined

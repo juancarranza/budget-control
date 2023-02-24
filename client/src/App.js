@@ -22,7 +22,7 @@ function App() {
 
   useEffect( () => {
 
-    if(!user?.isLogged){
+    if(!user?.isLogged && !localStorage.getItem("budget_token")){
       console.log("here: "+user.isLogged);
       navigate('/login');
     }else{

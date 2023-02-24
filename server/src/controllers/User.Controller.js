@@ -59,6 +59,7 @@ export async function login(request, response){
             const login= await bcrypt.compare(password, user.password);
             result = login ? user : "Wrong username/password combination!";
             if(login){
+                console.log("creado");
                 const token = jwt.sign(
                     {
                         user_id: user.id,
@@ -71,14 +72,15 @@ export async function login(request, response){
 
                 );
                 result.token = token;
+                console.log(result)
+                console.log("=---------------");
+                return response.status(200).send({success: true, user, token, mensaje:"Login exitoso"});   
             }
-            console.log(result)
-            console.log("=---------------");
+            
         }else{
             result= "The user does not exists!";
         }
 
-        setTimeout(() => { response.send(result)}, 3000);
         
     }catch(error){
         console.log("error: "+error);

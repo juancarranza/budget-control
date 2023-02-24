@@ -138,3 +138,39 @@ export async function deleteTransaction(request, response){
         });
     }
 }//delete
+
+export async function summaryTransactions(request, response){
+    try{
+
+        const id_user = request.body.transaction.id_user;
+        const transactions = await db.get().query('SELECT sum("ammount") AS total, "categoryType"  FROM JUAN.transactionn_list WHERE "id_user"=:id_user GROUP BY "categoryType";', 
+         {  
+            replacements: { id_user },
+            type: QueryTypes.SELECT 
+         });
+        response.send(transactions);
+    }catch(error){
+        response.status(500).send({
+            message:"There was an error while listing the transactions Income/Expense/Transfer",
+            error,
+        });
+    }
+}//getTransactions
+
+export async function incomeCategories(request, response){
+    try{
+
+        const id_user = request.body.transaction.id_user;
+        const transactions = await db.get().query('SELECT sum("ammount") AS total, "categoryType"  FROM JUAN.transactionn_list WHERE "id_user"=:id_user GROUP BY "categoryType";', 
+         {  
+            replacements: { id_user },
+            type: QueryTypes.SELECT 
+         });
+        response.send(transactions);
+    }catch(error){
+        response.status(500).send({
+            message:"There was an error while listing the transactions Income/Expense/Transfer",
+            error,
+        });
+    }
+}//getTransactions

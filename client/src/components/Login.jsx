@@ -38,7 +38,7 @@ const Login = () => {
       password: password
     }
 
-    console.log(loginCredentials);
+    //console.log(loginCredentials);
     //Axios.post('http://localhost:3001/api/budget-control/user/login', { loginCredentials }).then((response)=> console.log(response));
 
     dispatch(
@@ -58,8 +58,8 @@ const Login = () => {
 
 
   useEffect( () => {
-
-    if(!user?.isLogged){
+    
+    if(!user?.isLogged && !localStorage.getItem("budget_token")){
       console.log("here: "+user.isLogged);
       navigate('/login');
     }else{
