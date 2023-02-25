@@ -49,7 +49,7 @@ const Home = () => {
       <Card.Body>
         <Card.Title>Summary</Card.Title>
         <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
-        <Card.Text>
+        <div>
           <Chart
             chartType="PieChart"
             data={data}
@@ -57,7 +57,7 @@ const Home = () => {
             width={"100%"}
             height={"100%"}
             />
-        </Card.Text>
+        </div>
         {/* <Card.Link href="#">Card Link</Card.Link>
         <Card.Link href="#">Another Link</Card.Link> */}
       </Card.Body>
